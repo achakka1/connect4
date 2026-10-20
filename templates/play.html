@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect Four | Play</title>
+</head>
+<body>
+    <a href="/">Back to home</a>
+
+    <h1>Play Connect Four</h1>
+    <p>Create a room or join a friend’s game.</p>
+
+    {% if error %}
+        <p role="alert" style="color: #b42318;">{{ error }}</p>
+    {% endif %}
+
+    <h2>Create a game</h2>
+    <form method="post">
+        <button type="submit" name="action" value="create">
+            Create room
+        </button>
+    </form>
+
+    <h2>Join a game</h2>
+    <form method="post">
+        <label for="code">Room code</label>
+        <input
+            id="code"
+            name="code"
+            type="text"
+            maxlength="6"
+            placeholder="ABC123"
+            required
+        >
+        <button type="submit" name="action" value="join">
+            Join room
+        </button>
+    </form>
+</body>
+</html>

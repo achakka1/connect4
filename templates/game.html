@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect Four | Room {{ code }}</title>
+
+    <!-- Refresh to check whether the other player has joined. -->
+    <meta http-equiv="refresh" content="3">
+</head>
+<body>
+    <a href="/play">Back to room selection</a>
+
+    <h1>Room {{ code }}</h1>
+    <p>Share this room code with your friend: <strong>{{ code }}</strong></p>
+
+    <p>
+        You are Player {{ player_number }}:
+        <strong>
+            {% if player_number == 1 %}
+                Red
+            {% else %}
+                Yellow
+            {% endif %}
+        </strong>
+    </p>
+
+    {% if player_count == 1 %}
+        <p>Waiting for Player 2 to join…</p>
+    {% else %}
+        <p>Both players are here!</p>
+        <p>The room is ready. The game board is coming next.</p>
+    {% endif %}
+</body>
+</html>
