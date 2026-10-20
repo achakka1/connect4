@@ -2,10 +2,307 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Connect Four</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connect Four | Home</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fc;
+            color: #172340;
+        }
+
+        header {
+            max-width: 1100px;
+            margin: auto;
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #172340;
+        }
+
+        .logo span {
+            color: #305bea;
+        }
+
+        nav a {
+            color: #46516b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #305bea;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 24px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .eyebrow {
+            color: #305bea;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 16px 0;
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .intro {
+            max-width: 420px;
+            color: #58637a;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 16px 28px;
+            border-radius: 12px;
+            background: #305bea;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 6px 0 #2143b4;
+            transition: transform 0.2s;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+        }
+
+        .button:focus-visible,
+        nav a:focus-visible,
+        .logo:focus-visible {
+            outline: 3px solid #172340;
+            outline-offset: 6px;
+        }
+
+        .small-text {
+            margin-top: 22px;
+            color: #58637a;
+            font-size: 14px;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            padding: 20px;
+            border-radius: 22px;
+            background: #305bea;
+            border-bottom: 10px solid #2143b4;
+            box-shadow: 0 24px 45px #17234020;
+        }
+
+        .slot {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: #f5f7fc;
+            box-shadow: inset 0 4px 0 #00000018;
+        }
+
+        .red {
+            background: #fa5865;
+        }
+
+        .yellow {
+            background: #ffcf48;
+        }
+
+        .rules {
+            margin-top: 90px;
+            padding-top: 36px;
+            border-top: 1px solid #dce1ed;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        .rules ol {
+            padding-left: 24px;
+            color: #58637a;
+            line-height: 1.8;
+        }
+
+        .rules li {
+            padding-left: 8px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            padding: 28px 24px;
+            text-align: center;
+            color: #58637a;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+            main {
+                padding-top: 24px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .board {
+                width: 100%;
+                max-width: 440px;
+                margin: auto;
+                gap: 8px;
+                padding: 16px;
+            }
+
+            .rules {
+                margin-top: 50px;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Connect Four</h1>
-    <p>Connect four pieces in a row to win!</p>
+    <header>
+        <a class="logo" href="/">CONNECT<span>4</span></a>
+
+        <nav aria-label="Main navigation">
+            <a href="#rules">How to play</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div>
+                <p class="eyebrow">Two players. One winner.</p>
+                <h1 id="hero-title">Four in a row.<br>Game on.</h1>
+
+                <p class="intro">
+                    Challenge a friend to Connect Four. Take turns
+                    dropping your pieces and find your way to four
+                    before they do.
+                </p>
+
+                <a class="button" href="/play">Let’s play</a>
+                <p class="small-text">Grab a friend and pick your color.</p>
+            </div>
+
+            <div class="board"
+                 role="img"
+                 aria-label="Example Connect Four board with red and yellow pieces">
+                <!-- Row 1 -->
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+
+                <!-- Row 2 -->
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+
+                <!-- Row 3 -->
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot yellow"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+
+                <!-- Row 4 -->
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot red"></div>
+                <div class="slot red"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+
+                <!-- Row 5 -->
+                <div class="slot"></div>
+                <div class="slot yellow"></div>
+                <div class="slot yellow"></div>
+                <div class="slot red"></div>
+                <div class="slot yellow"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+
+                <!-- Row 6 -->
+                <div class="slot red"></div>
+                <div class="slot red"></div>
+                <div class="slot yellow"></div>
+                <div class="slot red"></div>
+                <div class="slot yellow"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+            </div>
+        </section>
+
+        <section class="rules" id="rules" aria-labelledby="rules-title">
+            <h2 id="rules-title">Simple rules. Plenty of strategy.</h2>
+
+            <ol>
+                <li>
+                    <strong>Take turns.</strong>
+                    One player uses red pieces and the other uses yellow.
+                </li>
+                <li>
+                    <strong>Choose a column.</strong>
+                    Your piece drops into its lowest available space.
+                </li>
+                <li>
+                    <strong>Connect four.</strong>
+                    Make a horizontal, vertical, or diagonal line of
+                    four pieces in your color to win.
+                </li>
+            </ol>
+
+            <p class="small-text">
+                If the board fills up without a winner, it’s a draw.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        Built with Flask. Played with friends.
+    </footer>
 </body>
 </html>
