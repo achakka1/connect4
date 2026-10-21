@@ -2,7 +2,7 @@
 connect4 game for hmw4
 
 This is a simple game of Connect4 with two players
-and a 7x7 board. Player 1 is red and is the one who creates the room. Meanwhile. Player 2 is yellow and enters the code given after Player 1 creates the room. Y
+and a 7x7 board. Player 1 is red and is the one who creates the room. Meanwhile. Player 2 is yellow and enters the code given after Player 1 creates the room. 
 
 
 
