@@ -3,50 +3,130 @@
 {% block title %}Connect Four | Room {{ code }}{% endblock %}
 
 {% block extra_head %}
-    {% if player_count == 1 %}
+    {% if not winner and not draw %}
         <meta http-equiv="refresh" content="3">
     {% endif %}
 {% endblock %}
 
 {% block content %}
-<main class="center">
-    <p class="eyebrow">Your game room</p>
-    <h1>Take your seat.</h1>
+<main class="game-page">
+    <p class="eyebrow">Room {{ code }}</p>
+    <h1>Make your move.</h1>
 
-    <p class="intro">
-        Your friend can join by entering this code on the play page.
-    </p>
+    <div class="player">
+        <span
+            class="piece {{ 'red' if player_number == 1 else 'yellow' }}"
+            aria-hidden="true"
+        ></span>
 
-    <section class="card" aria-label="Room details">
-        <h2>Room code</h2>
-        <div class="room-code">{{ code }}</div>
+        <span>
+            You are Player {{ player_number }} ·
+            {{ 'Red' if player_number == 1 else 'Yellow' }}
+        </span>
+    </div>
 
-        <div class="player">
-            {% if player_number == 1 %}
-                <span class="piece red" aria-hidden="true"></span>
-                <span>You are Player 1 · Red</span>
+    {% for message in get_flashed_messages() %}
+        <div class="error" role="alert">{{ message }}</div>
+    {% endfor %}
+
+    <div class="status{% if winner or draw %} ready{% endif %}"
+         role="status">
+        {% if winner %}
+            {% if winner == player_number %}
+                <strong>You won!</strong>
             {% else %}
-                <span class="piece yellow" aria-hidden="true"></span>
-                <span>You are Player 2 · Yellow</span>
+                <strong>Your opponent won!</strong>
             {% endif %}
-        </div>
 
-        {% if player_count == 1 %}
-            <div class="status">
-                <strong>Waiting for your opponent…</strong><br>
-                This page checks for Player 2 every three seconds.
-            </div>
-        {% else %}
-            <div class="status ready">
-                <strong>Both players are here!</strong><br>
-                Your room is ready.
-            </div>
-
-            <p class="small-text">
-                The game board will be added in the next update.
+            <p>
+                {{ 'Red' if winner == 1 else 'Yellow' }}
+                connected four.
             </p>
+
+        {% elif draw %}
+            <strong>It’s a draw!</strong>
+            <p>The board is full. Time for another game?</p>
+
+        {% elif player_count < 2 %}
+            <strong>Waiting for Player 2…</strong>
+            <p>Share your room code: <strong>{{ code }}</strong></p>
+
+        {% elif turn == player_number %}
+            <strong>Your turn!</strong>
+            <p>Choose a column to drop your piece.</p>
+
+        {% else %}
+            <strong>Your opponent’s turn.</strong>
+            <p>The board updates every three seconds.</p>
         {% endif %}
-    </section>
+    </div>
+
+    <div class="board-area">
+        <form
+            class="column-controls"
+            method="post"
+            action="{{ url_for('move', code=code) }}"
+        >
+            {% for column in range(7) %}
+                <button
+                    class="column-button"
+                    type="submit"
+                    name="column"
+                    value="{{ column }}"
+                    aria-label="Drop a piece in column {{ column + 1 }}"
+                    {% if
+                        player_count < 2
+                        or winner
+                        or draw
+                        or turn != player_number
+                        or board[0][column] != 0
+                    %}
+                        disabled
+                    {% endif %}
+                >
+                    {{ column + 1 }}
+                </button>
+            {% endfor %}
+        </form>
+
+        <div class="game-board" role="table"
+             aria-label="Connect Four board">
+            {% for row in range(6) %}
+                <div class="board-row" role="row">
+                    {% for column in range(7) %}
+                        {% set cell = board[row][column] %}
+
+                        <div
+                            role="cell"
+                            class="game-slot
+                                {% if cell == 1 %} red
+                                {% elif cell == 2 %} yellow
+                                {% endif %}
+                                {% if (row, column) in winning_cells %}
+                                    winning
+                                {% endif %}"
+                            aria-label="Row {{ row + 1 }},
+                                column {{ column + 1 }}:
+                                {{ 'Red' if cell == 1
+                                   else 'Yellow' if cell == 2
+                                   else 'Empty' }}"
+                        ></div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% if winner or draw %}
+        <p>
+            <a class="button" href="{{ url_for('play') }}">
+                Play again
+            </a>
+        </p>
+        <p class="small-text">
+            Create a new room and share the new code with your opponent.
+        </p>
+    {% endif %}
 
     <p>
         <a class="back-link" href="{{ url_for('play') }}">
@@ -55,3 +135,4 @@
     </p>
 </main>
 {% endblock %}
+

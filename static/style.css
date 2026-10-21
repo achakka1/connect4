@@ -236,3 +236,99 @@ footer {
         padding: 24px;
     }
 }
+.game-page {
+    max-width: 760px;
+    text-align: center;
+}
+
+.game-page .status p {
+    margin: 8px 0 0;
+}
+
+.board-area {
+    width: 100%;
+    max-width: 580px;
+    margin: 30px auto;
+}
+
+.column-controls {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 10px;
+    padding: 0 20px;
+    margin-bottom: 16px;
+}
+
+.column-controls .column-button {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 0;
+    border-radius: 10px;
+}
+
+.column-button:disabled {
+    background: #dce1ed;
+    color: #58637a;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.game-board {
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 22px;
+    background: #305bea;
+    border-bottom: 10px solid #2143b4;
+    box-shadow: 0 20px 40px #17234020;
+}
+
+.board-row {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.game-slot {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #f5f7fc;
+    box-shadow: inset 0 4px 0 #00000018;
+}
+
+.game-slot.red {
+    background: #fa5865;
+}
+
+.game-slot.yellow {
+    background: #ffcf48;
+}
+
+.game-slot.winning {
+    outline: 4px solid white;
+    outline-offset: -6px;
+    box-shadow: inset 0 0 0 8px #17234035;
+}
+
+@media (max-width: 500px) {
+    .game-board {
+        padding: 12px;
+        gap: 6px;
+        border-radius: 16px;
+    }
+
+    .board-row {
+        gap: 6px;
+    }
+
+    .column-controls {
+        padding: 0 12px;
+        gap: 6px;
+    }
+
+    .column-controls .column-button {
+        padding: 10px 0;
+        border-radius: 7px;
+    }
+}
