@@ -1,41 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Connect Four | Play</title>
-</head>
-<body>
-    <a href="/">Back to home</a>
+{% extends "base.html" %}
 
-    <h1>Play Connect Four</h1>
-    <p>Create a room or join a friend’s game.</p>
+{% block title %}Connect Four | Play{% endblock %}
+
+{% block content %}
+<main>
+    <p class="eyebrow">Bring a friend</p>
+    <h1>Your next game starts here.</h1>
+    <p class="intro">
+        Start a new room or enter a friend’s code to join their game.
+    </p>
 
     {% if error %}
-        <p role="alert" style="color: #b42318;">{{ error }}</p>
+        <div class="error" role="alert">{{ error }}</div>
     {% endif %}
 
-    <h2>Create a game</h2>
-    <form method="post">
-        <button type="submit" name="action" value="create">
-            Create room
-        </button>
-    </form>
+    <div class="rooms">
+        <section class="card">
+            <span class="piece red" aria-hidden="true"></span>
+            <h2>Start a game</h2>
+            <p class="description">
+                Create a room and share its code with a friend.
+                You’ll play as Red.
+            </p>
 
-    <h2>Join a game</h2>
-    <form method="post">
-        <label for="code">Room code</label>
-        <input
-            id="code"
-            name="code"
-            type="text"
-            maxlength="6"
-            placeholder="ABC123"
-            required
-        >
-        <button type="submit" name="action" value="join">
-            Join room
-        </button>
-    </form>
-</body>
-</html>
+            <form method="post" action="{{ url_for('play') }}">
+                <button type="submit" name="action" value="create">
+                    Create room
+                </button>
+            </form>
+        </section>
+
+        <section class="card">
+            <span class="piece yellow" aria-hidden="true"></span>
+            <h2>Join a friend</h2>
+            <p class="description">
+                Enter your friend’s room code to take the second seat.
+            </p>
+
+            <form method="post" action="{{ url_for('play') }}">
+                <label for="code">Room code</label>
+                <input
+                    id="code"
+                    name="code"
+                    type="text"
+                    minlength="6"
+                    maxlength="6"
+                    placeholder="ABC123"
+                    autocomplete="off"
+                    spellcheck="false"
+                    required
+                >
+
+                <button type="submit" name="action" value="join">
+                    Join room
+                </button>
+            </form>
+        </section>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Connect Four{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <header>
+        <a class="logo" href="{{ url_for('home') }}">
+            CONNECT<span>4</span>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <a href="{{ url_for('home') }}#rules">How to play</a>
+        </nav>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        Built with Flask. Played with friends.
+    </footer>
+</body>
+</html>

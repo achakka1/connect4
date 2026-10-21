@@ -1,35 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Connect Four | Room {{ code }}</title>
+{% extends "base.html" %}
 
-    <!-- Refresh to check whether the other player has joined. -->
-    <meta http-equiv="refresh" content="3">
-</head>
-<body>
-    <a href="/play">Back to room selection</a>
+{% block title %}Connect Four | Room {{ code }}{% endblock %}
 
-    <h1>Room {{ code }}</h1>
-    <p>Share this room code with your friend: <strong>{{ code }}</strong></p>
+{% block extra_head %}
+    {% if player_count == 1 %}
+        <meta http-equiv="refresh" content="3">
+    {% endif %}
+{% endblock %}
 
-    <p>
-        You are Player {{ player_number }}:
-        <strong>
-            {% if player_number == 1 %}
-                Red
-            {% else %}
-                Yellow
-            {% endif %}
-        </strong>
+{% block content %}
+<main class="center">
+    <p class="eyebrow">Your game room</p>
+    <h1>Take your seat.</h1>
+
+    <p class="intro">
+        Your friend can join by entering this code on the play page.
     </p>
 
-    {% if player_count == 1 %}
-        <p>Waiting for Player 2 to join…</p>
-    {% else %}
-        <p>Both players are here!</p>
-        <p>The room is ready. The game board is coming next.</p>
-    {% endif %}
-</body>
-</html>
+    <section class="card" aria-label="Room details">
+        <h2>Room code</h2>
+        <div class="room-code">{{ code }}</div>
+
+        <div class="player">
+            {% if player_number == 1 %}
+                <span class="piece red" aria-hidden="true"></span>
+                <span>You are Player 1 · Red</span>
+            {% else %}
+                <span class="piece yellow" aria-hidden="true"></span>
+                <span>You are Player 2 · Yellow</span>
+            {% endif %}
+        </div>
+
+        {% if player_count == 1 %}
+            <div class="status">
+                <strong>Waiting for your opponent…</strong><br>
+                This page checks for Player 2 every three seconds.
+            </div>
+        {% else %}
+            <div class="status ready">
+                <strong>Both players are here!</strong><br>
+                Your room is ready.
+            </div>
+
+            <p class="small-text">
+                The game board will be added in the next update.
+            </p>
+        {% endif %}
+    </section>
+
+    <p>
+        <a class="back-link" href="{{ url_for('play') }}">
+            Back to room selection
+        </a>
+    </p>
+</main>
+{% endblock %}
